@@ -2,16 +2,20 @@ import { AxiosResponse } from "axios";
 import { api } from "../api";
 
 class userService {
-  public static async createUser(body: any): Promise<AxiosResponse> {
-    return api.post("/api/user", body, {
+  public static async getUser(): Promise<AxiosResponse> {
+    return api.get("/api/user");
+  }
+
+  public static async loginUser(body: any): Promise<AxiosResponse> {
+    return api.post("/jwt-auth/v1/token", body, {
       headers: {
         "Content-Type": "application/json",
       },
     });
   }
 
-  public static async loginUser(body: any): Promise<AxiosResponse> {
-    return api.post("/jwt-auth/v1/token", body, {
+  public static async createUser(body: any): Promise<AxiosResponse> {
+    return api.post("/api/user", body, {
       headers: {
         "Content-Type": "application/json",
       },

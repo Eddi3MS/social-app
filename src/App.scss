@@ -1,12 +1,14 @@
-input {
-  display: block;
-  margin-bottom: 1rem;
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
 $type-first: Helvetica, Arial, sans-serif;
 $type-second: "Spectral", Georgia;
 
 body {
+  padding-top: 3.5rem;
   margin: 0;
   color: #333;
   font-family: $type-first;
@@ -38,6 +40,10 @@ input {
   font-size: 1rem;
   font-family: $type-first;
   color: #333;
+}
+
+a {
+  text-decoration: none;
 }
 
 .container {

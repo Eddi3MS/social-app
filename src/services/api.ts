@@ -1,11 +1,12 @@
 import axios from "axios";
+import { IToken, TokenService } from "./tokenService/tokenService";
 
 const api = axios.create({
-  baseURL: "https://dogsapi.origamid.dev/json/",
+  baseURL: "https://dogsapi.origamid.dev/json",
 });
 
 api.interceptors.request.use((config) => {
-  const token = "getTokenHere";
+  const token = TokenService.getTokenFromStorage();
   const configUpdated = config;
 
   if (token && configUpdated.headers) {
@@ -15,19 +16,15 @@ api.interceptors.request.use((config) => {
   return configUpdated;
 });
 
-// pegar tokens no loggin
-/* api.interceptors.response.use((success) => {
+api.interceptors.response.use((success) => {
   const { config, data } = success;
 
-   if (config.url?.includes("/auth/login") && config.method === "post") {
-    const { accessToken, refreshToken } = data as ITokens;
-    TokensService.setTokensToStorage({
-      accessToken,
-      refreshToken,
-    });
-  } 
+  if (config.url?.includes("/jwt-auth/v1/token") && config.method === "post") {
+    const token = data.token as IToken;
+    TokenService.setTokenToStorage(token);
+  }
 
   return success;
-}); */
+});
 
 export { api };

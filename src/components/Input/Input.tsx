@@ -1,0 +1,15 @@
+import "./Input.scss";
+
+const Input = ({ label, name, error, ...rest }: any) => {
+  return (
+    <div className="input__wrapper">
+      <label htmlFor={name} className="input__label">
+        {label}
+      </label>
+      <input id={name} name={name} {...rest} className="input__input" />
+      {error && <p className="input__error">{error}</p>}
+    </div>
+  );
+};
+
+export default Input;
