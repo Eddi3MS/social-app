@@ -21,7 +21,9 @@ api.interceptors.response.use((success) => {
 
   if (config.url?.includes("/jwt-auth/v1/token") && config.method === "post") {
     const token = data.token as IToken;
-    TokenService.setTokenToStorage(token);
+    if (token) {
+      TokenService.setTokenToStorage(token);
+    }
   }
 
   return success;

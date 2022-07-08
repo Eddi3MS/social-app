@@ -1,8 +1,12 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
 import { LoginForm, LostAccount, RegisterForm } from "./components";
 
 const Login = () => {
+  const userReducer = useAppSelector((state) => state.user);
+
+  if (userReducer.user) return <Navigate to="/account" />;
   return (
     <div>
       <Routes>

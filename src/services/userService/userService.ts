@@ -6,6 +6,10 @@ class userService {
     return api.get("/api/user");
   }
 
+  public static async tokenValidate(): Promise<AxiosResponse> {
+    return api.post("/jwt-auth/v1/token/validate");
+  }
+
   public static async loginUser(body: any): Promise<AxiosResponse> {
     return api.post("/jwt-auth/v1/token", body, {
       headers: {

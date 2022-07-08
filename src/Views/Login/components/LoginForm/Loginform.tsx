@@ -1,11 +1,14 @@
-import React, { FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Input } from "../../../../components";
 import { userService } from "../../../../services/userService/userService";
 
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { login } from "../../../../store/user/thunks";
+import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
 
 const formSchema = yup.object().shape({
   username: yup.string().required("Campo obrigatório."),
@@ -16,10 +19,15 @@ const Loginform = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useAppDispatch();
+  const userReducer = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setError,
   } = useForm({
     mode: "all",
     resolver: yupResolver(formSchema),
@@ -31,14 +39,33 @@ const Loginform = () => {
       password,
     });
     try {
-      const response = await userService.loginUser(params);
+      await userService.loginUser(params);
 
-      const res = await userService.getUser();
-
-      console.log(response);
-      console.log("user", res);
-    } catch (error) {}
+      dispatch(login());
+    } catch (error) {
+      setError("password", {
+        message: "Erro no Login! Verifique seus dados e tente novamente.",
+      });
+    }
   };
+
+  useEffect(() => {
+    if (userReducer.user) {
+      navigate("/account");
+    }
+  }, [userReducer.user]);
+
+  useEffect(() => {
+    if (userReducer.error) {
+      setError("username", {
+        message: userReducer.error.message,
+      });
+
+      setError("password", {
+        message: userReducer.error.message,
+      });
+    }
+  }, [userReducer.error]);
 
   return (
     <section>
@@ -81,8 +108,15 @@ const Loginform = () => {
             />
           )}
         />
-
-        <Button onClick={handleSubmit(handleLogin)}>Entrar</Button>
+        {userReducer.loading ? (
+          <Button disabled key={1}>
+            Carregando...
+          </Button>
+        ) : (
+          <Button onClick={handleSubmit(handleLogin)} key={2}>
+            Entrar
+          </Button>
+        )}
       </form>
       <Link to="/login/register">Register</Link>
       <Link to="/login/lost-account">Perdeu a senha?</Link>
