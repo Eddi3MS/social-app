@@ -1,7 +1,9 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import "./Button.scss";
 
-const Button = ({ children, ...props }: any) => {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+const Button = ({ children, ...props }: IButtonProps) => {
   return (
     <button {...props} className="button">
       {children}

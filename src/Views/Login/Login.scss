@@ -1,0 +1,30 @@
+.login_routes-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 56px);
+  gap: 2rem;
+
+  &::before {
+    display: block;
+    content: "";
+    background: url("../../assets/login.jpg") no-repeat center center;
+    background-size: cover;
+  }
+
+  .login_routes-wrapper {
+    max-width: 30rem;
+    padding: 1rem;
+  }
+
+  @media (max-width: 40rem) {
+    grid-template-columns: 1fr;
+
+    &::before {
+      display: none;
+    }
+
+    .login_routes-wrapper {
+      max-width: 100%;
+    }
+  }
+}

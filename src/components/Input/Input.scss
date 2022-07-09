@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .input__wrapper {
   margin-bottom: 1.5rem;
 
@@ -21,15 +23,15 @@
     &:focus,
     &:hover {
       outline: none;
-      border-color: #fb1;
+      border-color: $primary;
       background: white;
-      box-shadow: 0 0 0 3px #fea;
+      box-shadow: 0 0 0 3px $primary-light;
     }
   }
 
   .input__error {
     position: absolute;
-    color: #f31;
+    color: $error;
     font-size: 0.875rem;
     margin-top: 0.25rem;
   }

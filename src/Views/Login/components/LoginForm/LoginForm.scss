@@ -1,0 +1,49 @@
+@import "../../../../App.scss";
+
+.login_page {
+  &_form {
+    margin-bottom: 2rem;
+
+    button {
+      margin-top: 2rem;
+    }
+  }
+
+  &_lost-account {
+    display: inline-block;
+    color: #665;
+    padding-block: 0.5rem;
+    line-height: 1;
+
+    &::after {
+      content: "";
+      height: 2px;
+      width: 100%;
+      background-color: currentColor;
+      display: block;
+    }
+  }
+
+  &_register {
+    margin-top: 4rem;
+
+    &_subtitle {
+      font-family: $type-second;
+      line-height: 1;
+      font-size: 2rem;
+
+      &::after {
+        content: "";
+        display: block;
+        background-color: #ddd;
+        height: 0.5rem;
+        width: 3rem;
+        border-radius: 0.2rem;
+      }
+    }
+
+    p {
+      margin-block: 2rem;
+    }
+  }
+}

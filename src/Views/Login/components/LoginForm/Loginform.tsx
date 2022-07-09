@@ -1,21 +1,20 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Input } from "../../../../components";
-import { userService } from "../../../../services/userService/userService";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { login } from "../../../../store/user/thunks";
+import "./LoginForm.scss";
 
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { login } from "../../../../store/user/thunks";
-import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
 
 const formSchema = yup.object().shape({
   username: yup.string().required("Campo obrigatório."),
   password: yup.string().required("Campo obrigatório."),
 });
 
-const Loginform = () => {
+const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,20 +32,13 @@ const Loginform = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     let params = JSON.stringify({
       username,
       password,
     });
-    try {
-      await userService.loginUser(params);
 
-      dispatch(login());
-    } catch (error) {
-      setError("password", {
-        message: "Erro no Login! Verifique seus dados e tente novamente.",
-      });
-    }
+    dispatch(login({ params, skipVal: true }));
   };
 
   useEffect(() => {
@@ -58,19 +50,19 @@ const Loginform = () => {
   useEffect(() => {
     if (userReducer.error) {
       setError("username", {
-        message: userReducer.error.message,
+        message: "Login inválido.",
       });
 
       setError("password", {
-        message: userReducer.error.message,
+        message: "Login inválido.",
       });
     }
   }, [userReducer.error]);
 
   return (
-    <section>
-      <h1>Login</h1>
-      <form>
+    <section className="animeLeft login_page">
+      <h1 className="title">Login</h1>
+      <form className="login_page_form">
         <Controller
           control={control}
           name="username"
@@ -79,7 +71,7 @@ const Loginform = () => {
               label="Usuário"
               name="username"
               value={username}
-              onChange={({ target }: any) => {
+              onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
                 setUsername(target.value);
                 onChange(target.value);
               }}
@@ -98,7 +90,7 @@ const Loginform = () => {
               label="Senha"
               name="password"
               value={password}
-              onChange={({ target }: any) => {
+              onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
                 setPassword(target.value);
                 onChange(target.value);
               }}
@@ -108,20 +100,30 @@ const Loginform = () => {
             />
           )}
         />
-        {userReducer.loading ? (
-          <Button disabled key={1}>
-            Carregando...
-          </Button>
-        ) : (
-          <Button onClick={handleSubmit(handleLogin)} key={2}>
-            Entrar
-          </Button>
-        )}
+
+        <Button
+          onClick={handleSubmit(handleLogin)}
+          disabled={userReducer.loading}
+        >
+          {userReducer.loading ? " Carregando..." : "Entrar"}
+        </Button>
       </form>
-      <Link to="/login/register">Register</Link>
-      <Link to="/login/lost-account">Perdeu a senha?</Link>
+      <Link className="login_page_lost-account" to="/login/lost-account">
+        Perdeu a Senha?
+      </Link>
+      <div className="login_page_register">
+        <h2 className="login_page_register_subtitle">Cadastre-se</h2>
+        <p>Ainda não possui senha? Cadastre-se agora!!</p>
+
+        <Button
+          onClick={() => navigate("/login/register")}
+          aria-label="link to register page"
+        >
+          Cadastro
+        </Button>
+      </div>
     </section>
   );
 };
 
-export default Loginform;
+export default LoginForm;

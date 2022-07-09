@@ -1,0 +1,54 @@
+@import "../../App.scss";
+
+input[type="file"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.input-file {
+  position: relative;
+}
+
+.custom-file-input {
+  border: 1px solid #eee;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #eee;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+
+  span {
+    margin-right: 0.5rem;
+  }
+
+  .text-success {
+    color: green;
+  }
+  .text-dark {
+    color: #ccc;
+  }
+
+  &:focus,
+  &:hover {
+    outline: none;
+    border-color: $primary;
+    background: white;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+}
+
+.error_message-file {
+  position: absolute;
+  bottom: 5px;
+  color: $error;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}

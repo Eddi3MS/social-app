@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .header {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -18,7 +20,7 @@
   }
 
   &__login {
-    color: #333;
+    color: $dark;
     display: flex;
     align-items: center;
 

@@ -27,7 +27,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    logout: (state: any) => {
+    logout: (state) => {
       state.user = null;
       TokenService.logout();
     },

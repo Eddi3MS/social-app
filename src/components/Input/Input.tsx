@@ -1,6 +1,13 @@
+import { InputHTMLAttributes } from "react";
+
 import "./Input.scss";
 
-const Input = ({ label, name, error, ...rest }: any) => {
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  error?: any; // react-hook-form // string
+  label: string;
+}
+
+const Input = ({ label, name, error, ...rest }: IInputProps) => {
   return (
     <div className="input__wrapper">
       <label htmlFor={name} className="input__label">

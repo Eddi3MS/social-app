@@ -10,8 +10,6 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const userReducer = useAppSelector((state) => state.user);
 
-  console.log(userReducer);
-
   return (
     <header className="header">
       <nav className="container header__nav">
