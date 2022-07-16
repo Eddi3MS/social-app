@@ -5,6 +5,8 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { userService } from "../../../../services/userService/userService";
+import "./PhotoPost.scss";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("Campo obrigatório."),
@@ -48,6 +50,7 @@ const PhotoPost = () => {
   const [image, setImage] = useState<IImage>(initialImage);
 
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -55,7 +58,7 @@ const PhotoPost = () => {
     formState: { errors },
     reset,
   } = useForm({
-    mode: "all",
+    mode: "onSubmit",
     resolver: yupResolver(formSchema),
   });
 
@@ -69,6 +72,8 @@ const PhotoPost = () => {
 
     try {
       await userService.postPhoto(formData);
+
+      navigate("/account");
     } catch (error) {
       console.log(error);
     } finally {
@@ -91,7 +96,7 @@ const PhotoPost = () => {
   };
 
   return (
-    <section className="animeLeft">
+    <section className="animeLeft photo_post">
       <form>
         <Controller
           control={control}
@@ -176,6 +181,14 @@ const PhotoPost = () => {
           {loading ? "Postando.." : "Postar"}
         </Button>
       </form>
+      <div>
+        {image.preview && (
+          <div
+            className="image_preview"
+            style={{ backgroundImage: `url('${image.preview}')` }}
+          ></div>
+        )}
+      </div>
     </section>
   );
 };

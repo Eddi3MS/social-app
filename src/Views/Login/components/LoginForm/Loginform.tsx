@@ -28,7 +28,7 @@ const LoginForm = () => {
     formState: { errors },
     setError,
   } = useForm({
-    mode: "all",
+    mode: "onSubmit",
     resolver: yupResolver(formSchema),
   });
 

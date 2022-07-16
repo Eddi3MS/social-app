@@ -63,6 +63,21 @@ a {
   margin: 0 auto;
 }
 
+.main_container {
+  margin-top: 4rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+
 .animeLeft {
   opacity: 0;
   transform: translateX(-20px);

@@ -8,6 +8,13 @@ input[type="file"] {
 
 .input-file {
   position: relative;
+
+  .input-label {
+    display: block;
+    font-size: 1rem;
+    line-height: 1;
+    padding-bottom: 0.5rem;
+  }
 }
 
 .custom-file-input {
@@ -20,14 +27,10 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: left;
-  max-width: 50%;
+
   white-space: nowrap;
   overflow: hidden;
   margin-bottom: 1.5rem;
-
-  span {
-    margin-right: 0.5rem;
-  }
 
   .text-success {
     color: green;
@@ -42,6 +45,17 @@ input[type="file"] {
     border-color: $primary;
     background: white;
     box-shadow: 0 0 0 3px $primary-light;
+  }
+
+  &--text {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    span {
+      position: relative;
+      top: -2px;
+      margin-right: 0.5rem;
+    }
   }
 }
 

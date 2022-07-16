@@ -11,21 +11,22 @@ interface IInputFileProps extends InputHTMLAttributes<HTMLInputElement> {
 const InputFile = ({ error, selected, ...rest }: IInputFileProps) => {
   return (
     <div className="input-file">
+      <span className="input-label">Imagem</span>
       <label htmlFor="input_file" className="custom-file-input">
         {selected ? (
-          <>
+          <span className="custom-file-input--text" key={1}>
             <Icon
               name="check_circle_outline"
               size={25}
               className="text-success"
             />
             {selected.name}
-          </>
+          </span>
         ) : (
-          <>
-            <Icon className="text-dark" name="image" size={25} /> Selecionar
-            Imagem
-          </>
+          <span className="custom-file-input--text" key={2}>
+            <Icon className="text-dark" name="image" size={25} /> Clique para
+            selecionar...
+          </span>
         )}
       </label>{" "}
       <input id="input_file" type="file" {...rest} />

@@ -1,6 +1,12 @@
 import { AxiosResponse } from "axios";
 import { api } from "../api";
 
+interface IGetPhotos {
+  page: number;
+  total: number;
+  user: number;
+}
+
 class userService {
   // envia username e password pro servidor e recebe um token + user (sem a ID)
   public static async loginUser(body: any): Promise<AxiosResponse> {
@@ -37,8 +43,12 @@ class userService {
     });
   }
 
-  public static async getPhoto(): Promise<AxiosResponse> {
-    return api.get("/api/photo");
+  public static async getPhotos({
+    page,
+    total,
+    user,
+  }: IGetPhotos): Promise<AxiosResponse> {
+    return api.get(`/api/photo/?_page=${page}&_total=${total}&_user=${user}`);
   }
 
   public static async getSinglePhoto(id: number): Promise<AxiosResponse> {
