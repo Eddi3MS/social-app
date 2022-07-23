@@ -1,14 +1,15 @@
 import React from "react";
-import { IPhoto } from "../FeedPhotos/FeedPhotosProps";
+import { IPhotoDTO } from "../../../../services/userService/dtos/userServiceDTO";
 import "./FeedPhotosItem.scss";
 
 interface IPhotoItem {
-  photo: IPhoto;
+  photo: IPhotoDTO;
+  onClick: () => void;
 }
 
-const FeedPhotoItem = ({ photo }: IPhotoItem) => {
+const FeedPhotoItem = ({ photo, ...rest }: IPhotoItem) => {
   return (
-    <li className="photo_item">
+    <li className="photo_item" {...rest}>
       <img src={photo.src} alt={photo.title} />
       <span className="photo_item__visualizacao">{photo.acessos}</span>
     </li>

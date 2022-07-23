@@ -1,0 +1,6 @@
+@import "/src/App.scss";
+
+.spinner_container .spinner-border {
+  color: $primary;
+  animation-duration: 0.6s;
+}

@@ -1,0 +1,45 @@
+@import "../../../../App.scss";
+
+.comment_form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: stretch;
+  padding-inline: 1rem;
+
+  &.single {
+    margin: 1rem 0;
+  }
+
+  &-button {
+    border: none;
+    cursor: pointer;
+    color: $dark;
+    background: transparent;
+    font-size: 1rem;
+    padding-inline: 1rem;
+    overflow: hidden;
+
+    &:focus,
+    &:hover {
+      outline: none;
+
+      & svg path {
+        fill: $primary-light;
+        stroke: $primary;
+      }
+
+      & svg g {
+        animation: latir 0.6s infinite;
+      }
+    }
+  }
+}
+
+@keyframes latir {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

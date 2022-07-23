@@ -1,18 +1,26 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
+import { IPhotoDTO } from "../../../../services/userService/dtos/userServiceDTO";
 import { userService } from "../../../../services/userService/userService";
 import FeedPhotosItem from "../FeedPhotosItem";
-import { IPhoto } from "./FeedPhotosProps";
 import "./FeedPhotos.scss";
 
-const FeedPhotos = () => {
-  const [photos, setPhotos] = useState<IPhoto[]>([]);
+interface IFeedPhotos {
+  setPhotoId: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+const FeedPhotos = ({ setPhotoId }: IFeedPhotos) => {
+  const [photos, setPhotos] = useState<IPhotoDTO[]>([]);
   const [loading, setLoading] = useState(false);
   const getPhotos = useCallback(async () => {
     setLoading(true);
     try {
-      const resp = await userService.getPhotos({ page: 1, total: 6, user: 0 });
+      const { data } = await userService.getPhotos({
+        page: 1,
+        total: 6,
+        user: 0,
+      });
 
-      setPhotos(resp.data);
+      setPhotos(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -36,7 +44,11 @@ const FeedPhotos = () => {
           {photos && (
             <ul className="photos_list animeLeft">
               {photos.map((photo) => (
-                <FeedPhotosItem photo={photo} key={photo.id} />
+                <FeedPhotosItem
+                  photo={photo}
+                  key={photo.id}
+                  onClick={() => setPhotoId(photo.id)}
+                />
               ))}
             </ul>
           )}

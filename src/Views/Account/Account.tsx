@@ -5,7 +5,7 @@ import { PhotoPost, Stats } from "./components";
 
 const Account = () => {
   return (
-    <section className="container">
+    <section className="app_container">
       <ActionBar />
       <Routes>
         <Route path="/" element={<Feed />} />

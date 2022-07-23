@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <nav className="container header__nav">
+      <nav className="app_container header__nav">
         <Link className="header__logo" to="/" aria-label="Dogs - Home">
           <Dogs />
         </Link>

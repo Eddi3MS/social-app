@@ -1,0 +1,45 @@
+@import "../../App.scss";
+
+.textarea_input-wrapper {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1rem;
+
+  .textarea_input {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-family: $type-first;
+    resize: none;
+    border: 1px solid #eee;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    background: #eee;
+    transition: 0.2s;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      border-color: $primary;
+      background: white;
+      box-shadow: 0 0 0 3px $primary-light;
+    }
+  }
+
+  &.hasError {
+    .textarea_input {
+      border-color: $error;
+      &:focus,
+      &:hover {
+        border-color: $error;
+        box-shadow: 0 0 0 3px $error-light;
+      }
+    }
+  }
+}
+
+.textarea_error {
+  position: absolute;
+  color: $error;
+  font-size: 0.875rem;
+}

@@ -16,6 +16,7 @@ $primary: #fb1;
 $primary-dark: #764701;
 
 $error: #f31;
+$error-light: #f78;
 
 body {
   padding-top: 3.5rem;
@@ -53,11 +54,11 @@ input {
 }
 
 a {
-  text-decoration: none;
-  color: $dark;
+  text-decoration: none !important;
+  color: $dark !important;
 }
 
-.container {
+.app_container {
   max-width: 50rem;
   padding: 0 1rem;
   margin: 0 auto;
