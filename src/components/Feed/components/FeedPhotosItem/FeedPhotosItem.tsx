@@ -1,5 +1,6 @@
 import React from "react";
 import { IPhotoDTO } from "../../../../services/userService/dtos/userServiceDTO";
+import ImageSkeleton from "../../../ImageSkeleton";
 import "./FeedPhotosItem.scss";
 
 interface IPhotoItem {
@@ -10,7 +11,8 @@ interface IPhotoItem {
 const FeedPhotoItem = ({ photo, ...rest }: IPhotoItem) => {
   return (
     <li className="photo_item" {...rest}>
-      <img src={photo.src} alt={photo.title} />
+      <ImageSkeleton src={photo.src} alt={photo.title} />
+
       <span className="photo_item__visualizacao">{photo.acessos}</span>
     </li>
   );

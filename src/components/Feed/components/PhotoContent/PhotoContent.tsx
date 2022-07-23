@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ISinglePhotoDTO } from "../../../../services/userService/dtos/userServiceDTO";
+import { useAppSelector } from "../../../../store/hooks";
+import ImageSkeleton from "../../../ImageSkeleton";
 import PhotoComments from "../PhotoComments";
+import PhotoDelete from "../PhotoDelete";
 import "./PhotoContent.scss";
 
 interface IPhotoContent {
@@ -10,15 +13,25 @@ interface IPhotoContent {
 
 const PhotoContent = ({ data }: IPhotoContent) => {
   const { photo, comments } = data;
+
+  const { user } = useAppSelector((state) => state.user);
+
   return (
     <div className="photo_content">
       <div className="photo_content-img">
-        <img src={photo.src} alt={photo.title} />
+        <ImageSkeleton src={photo.src} alt={photo.title} />
       </div>
       <div className="photo_content-details">
         <div>
           <p className="photo_content-author">
-            <Link to={`/perfil/${photo.author}`}>@{photo.author}</Link>
+            {user && user.username === photo.author ? (
+              <PhotoDelete id={photo.id} key={1} />
+            ) : (
+              <Link key={2} to={`/perfil/${photo.author}`}>
+                @{photo.author}
+              </Link>
+            )}
+
             <span className="photo_content-visualization">{photo.acessos}</span>
           </p>
           <h1 className="title">

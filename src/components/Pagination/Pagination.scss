@@ -1,0 +1,47 @@
+@import "../../App.scss";
+
+.feed_actions {
+  display: flex;
+  justify-content: center;
+  height: 2.5rem;
+  gap: 0.5rem;
+
+  button {
+    width: 60px;
+    border: 1px solid #eee;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $primary-light, 0 0 0 4px $primary;
+    }
+
+    & svg {
+      transform: scale(0.5);
+    }
+
+    &:disabled {
+      outline: none;
+      box-shadow: none;
+      background: #eee;
+      border-color: #ccc;
+    }
+  }
+
+  button:nth-of-type(2) {
+    cursor: default;
+    border-color: $primary-light;
+    color: $primary-dark;
+    font-weight: bold;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

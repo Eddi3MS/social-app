@@ -17,7 +17,7 @@ interface IGetPhotos {
 class userService {
   // envia username e password pro servidor e recebe um token + user (sem a ID)
   public static async loginUser(
-    body: FormData
+    body: string
   ): Promise<AxiosResponse<IUserLoginDTO>> {
     return api.post<IUserLoginDTO>("/jwt-auth/v1/token", body, {
       headers: {
@@ -79,6 +79,10 @@ class userService {
     id: number
   ): Promise<AxiosResponse<ISinglePhotoDTO>> {
     return api.get<ISinglePhotoDTO>(`/api/photo/${id}`);
+  }
+
+  public static async deletePhoto(id: number): Promise<AxiosResponse> {
+    return api.delete(`/api/photo/${id}`);
   }
 }
 

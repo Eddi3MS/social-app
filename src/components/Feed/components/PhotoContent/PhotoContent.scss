@@ -17,6 +17,10 @@
 
   &-img {
     grid-row: 1/4;
+
+    img {
+      width: 100%;
+    }
   }
 
   &-comments {

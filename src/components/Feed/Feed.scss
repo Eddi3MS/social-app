@@ -1,0 +1,15 @@
+@import "../../App.scss";
+
+.feed_wrapper {
+  min-height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+
+  &.feed_wrapper--account {
+    min-height: calc(100vh - 12rem);
+  }
+
+  .feed_photos_wrapper {
+    flex: 1;
+  }
+}

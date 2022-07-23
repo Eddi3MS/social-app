@@ -13,7 +13,7 @@ export const login = createAsyncThunk(
   async ({ params, skipParams, skipVal }: ILogin, { rejectWithValue }) => {
     try {
       if (!skipParams) {
-        await userService.loginUser(params);
+        await userService.loginUser(params!);
       }
       if (!skipVal) {
         await userService.tokenValidate();

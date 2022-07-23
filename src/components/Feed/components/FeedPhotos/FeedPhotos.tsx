@@ -1,53 +1,52 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
-import { IPhotoDTO } from "../../../../services/userService/dtos/userServiceDTO";
-import { userService } from "../../../../services/userService/userService";
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { selectPhoto } from "../../../../store/photo/photoSlice";
+import { getPhotos } from "../../../../store/photo/thunks";
+import Loading from "../../../Loading";
 import FeedPhotosItem from "../FeedPhotosItem";
 import "./FeedPhotos.scss";
 
-interface IFeedPhotos {
-  setPhotoId: React.Dispatch<React.SetStateAction<number | null>>;
-}
+const FeedPhotos = () => {
+  const dispatch = useAppDispatch();
+  const photoReducer = useAppSelector((state) => state.photo);
+  const userReducer = useAppSelector((state) => state.user);
 
-const FeedPhotos = ({ setPhotoId }: IFeedPhotos) => {
-  const [photos, setPhotos] = useState<IPhotoDTO[]>([]);
-  const [loading, setLoading] = useState(false);
-  const getPhotos = useCallback(async () => {
-    setLoading(true);
-    try {
-      const { data } = await userService.getPhotos({
-        page: 1,
-        total: 6,
-        user: 0,
-      });
+  const location = useLocation();
 
-      setPhotos(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const getPhotosList = useCallback(() => {
+    let id = 0;
+    if (userReducer.user && location.pathname === "/account")
+      id = userReducer.user.id;
+
+    dispatch(
+      getPhotos({ page: photoReducer.current_page, total: 6, user: id })
+    );
+  }, [photoReducer.current_page]);
 
   useEffect(() => {
-    getPhotos();
-  }, [getPhotos]);
+    getPhotosList();
+  }, [getPhotosList]);
+
+  const selectPhotoToModal = (id: number) => {
+    dispatch(selectPhoto({ id }));
+  };
 
   return (
     <section>
-      {loading ? (
-        <span key={1} className=" flex justify-center align-center">
-          Loading...
-        </span>
+      {photoReducer.loading ? (
+        <Loading />
       ) : (
         <Fragment key={2}>
-          {!photos && <span>No Content.</span>}
-          {photos && (
+          {!photoReducer.data ||
+            (photoReducer.data.length === 0 && <span>No Content.</span>)}
+          {photoReducer.data && (
             <ul className="photos_list animeLeft">
-              {photos.map((photo) => (
+              {photoReducer.data.map((photo) => (
                 <FeedPhotosItem
                   photo={photo}
                   key={photo.id}
-                  onClick={() => setPhotoId(photo.id)}
+                  onClick={() => selectPhotoToModal(photo.id)}
                 />
               ))}
             </ul>
