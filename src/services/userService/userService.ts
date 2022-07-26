@@ -71,7 +71,7 @@ class userService {
     user,
   }: IGetPhotos): Promise<AxiosResponse<IPhotoDTO[]>> {
     return api.get<IPhotoDTO[]>(
-      `/api/photo/?_page=${page}&_total=${total}&_user=${user}`
+      `/api/photo/?_page=${page}&_total=${total}&_user=${user}&timestamp=${new Date().getTime()}`
     );
   }
 

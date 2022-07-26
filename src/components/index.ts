@@ -6,3 +6,8 @@ export { default as Textarea } from "./Textarea";
 export { default as Button } from "./Button";
 export { default as ActionBar } from "./ActionBar";
 export { default as Feed } from "./Feed";
+export { default as Photo } from "./Photo";
+export { default as PhotoContent } from "./PhotoContent";
+export { default as PhotoDelete } from "./PhotoDelete";
+export { default as PhotoComments } from "./PhotoComments";
+export { default as PhotoCommentsForm } from "./PhotoCommentsForm";

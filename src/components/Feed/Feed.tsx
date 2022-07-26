@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import Pagination from "../Pagination";

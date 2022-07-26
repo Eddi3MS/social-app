@@ -45,13 +45,13 @@ const RegisterForm = () => {
 
   const registerAccount = async () => {
     setLoading(true);
-    const params = JSON.stringify({
-      username,
-      email,
-      password,
-    });
+    const form = new FormData();
+    form.append("username", username);
+    form.append("email", email);
+    form.append("password", password);
+
     try {
-      await userService.createUser(params);
+      await userService.createUser(form);
 
       dispatch(
         login({

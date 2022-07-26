@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { userService } from "../../../../services/userService/userService";
-import { useAppDispatch } from "../../../../store/hooks";
-import { selectPhoto } from "../../../../store/photo/photoSlice";
-import { getPhotos } from "../../../../store/photo/thunks";
+import { userService } from "../../services/userService/userService";
+import { useAppDispatch } from "../../store/hooks";
+import { selectPhoto } from "../../store/photo/photoSlice";
+import { getPhotos } from "../../store/photo/thunks";
 import "./PhotoDelete.scss";
 
 interface IPhotoDelete {

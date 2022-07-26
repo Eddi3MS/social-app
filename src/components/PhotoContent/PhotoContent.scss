@@ -23,10 +23,6 @@
     }
   }
 
-  &-comments {
-    padding: 0 2rem;
-  }
-
   &-author {
     opacity: 0.5;
     margin-bottom: 1rem;
@@ -69,6 +65,21 @@
         background: #333;
         margin-top: 5px;
       }
+    }
+  }
+
+  //single photo layout
+  &.single_photo {
+    grid-template-columns: 1fr;
+    height: auto;
+
+    .photo_content-img {
+      border-radius: 0.4rem;
+      overflow: hidden;
+    }
+
+    .photo_content-details {
+      padding: 1rem 0 0 0;
     }
   }
 

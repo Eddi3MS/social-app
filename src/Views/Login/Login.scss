@@ -1,6 +1,6 @@
 .login_routes-view {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 30rem;
   min-height: calc(100vh - 56px);
   gap: 2rem;
 

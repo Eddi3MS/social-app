@@ -4,6 +4,11 @@
   padding-inline: 2rem;
   margin-inline: 1rem;
 
+  &.list_single {
+    padding-inline: 0;
+    margin-inline: 0;
+  }
+
   li {
     margin-bottom: 0.5rem;
     line-height: 1.2;

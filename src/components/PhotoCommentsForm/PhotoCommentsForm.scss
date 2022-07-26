@@ -1,4 +1,4 @@
-@import "../../../../App.scss";
+@import "../../App.scss";
 
 .comment_form {
   display: grid;
@@ -6,8 +6,8 @@
   align-items: stretch;
   padding-inline: 1rem;
 
-  &.single {
-    margin: 1rem 0;
+  &.single_form {
+    padding-inline: 0.5rem;
   }
 
   &-button {

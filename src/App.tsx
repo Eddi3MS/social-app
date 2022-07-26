@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { Footer, Header } from "./components";
+import { Footer, Header, Photo } from "./components";
 import Protected from "./Layout/Protected";
 import { TokenService } from "./services/tokenService/tokenService";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
@@ -50,6 +50,7 @@ function App() {
               </Protected>
             }
           />
+          <Route path="photo/:id" element={<Photo />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -4,7 +4,7 @@ import { userService } from "../../../../services/userService/userService";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectPhoto } from "../../../../store/photo/photoSlice";
 import Loading from "../../../Loading";
-import PhotoContent from "../PhotoContent";
+import PhotoContent from "../../../PhotoContent";
 import "./FeedModal.scss";
 
 const FeedModal = () => {

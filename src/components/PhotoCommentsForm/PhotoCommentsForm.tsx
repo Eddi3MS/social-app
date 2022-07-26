@@ -1,13 +1,13 @@
 import React, { FormEvent, useState } from "react";
-import { ReactComponent as Enviar } from "../../../../assets/enviar.svg";
-import { userService } from "../../../../services/userService/userService";
+import { ReactComponent as Enviar } from "../../assets/enviar.svg";
 import "./PhotoCommentsForm.scss";
 
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Textarea from "../../../Textarea";
-import { ICommentDTO } from "../../../../services/userService/dtos/userServiceDTO";
+import { ICommentDTO } from "../../services/userService/dtos/userServiceDTO";
+import { userService } from "../../services/userService/userService";
+import Textarea from "../Textarea";
 
 const formSchema = yup.object().shape({
   comment: yup.string().required("Campo obrigatório."),
@@ -16,9 +16,10 @@ const formSchema = yup.object().shape({
 interface IPhotoCommentsForm {
   id: number;
   setComments: React.Dispatch<React.SetStateAction<ICommentDTO[]>>;
+  single?: boolean;
 }
 
-const PhotoCommentsForm = ({ id, setComments }: IPhotoCommentsForm) => {
+const PhotoCommentsForm = ({ id, setComments, single }: IPhotoCommentsForm) => {
   const [comment, setComment] = useState("");
 
   const {
@@ -44,7 +45,7 @@ const PhotoCommentsForm = ({ id, setComments }: IPhotoCommentsForm) => {
   };
 
   return (
-    <form className={`comment_form ${true && "single"}`}>
+    <form className={`comment_form ${single && "single_form"}`}>
       <Controller
         control={control}
         name="comment"
