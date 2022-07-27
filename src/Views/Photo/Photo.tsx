@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Head, Loading, NoContent, PhotoContent } from "../../components";
 import { ISinglePhotoDTO } from "../../services/userService/dtos/userServiceDTO";
 import { userService } from "../../services/userService/userService";
-import Loading from "../Loading";
-import PhotoContent from "../PhotoContent";
 import "./Photo.scss";
 
 const Photo = () => {
@@ -32,16 +31,16 @@ const Photo = () => {
   }, [getPhotoData]);
 
   return (
-    <>
+    <section className="app_container main_container single_photo_wrapper">
+      <Head
+        title={data?.photo.title ?? "Social"}
+        description="Social App - Single Photo Page"
+      />
+
       {loading && <Loading />}
-      {!loading && data ? (
-        <section className="app_container main_container">
-          <PhotoContent single data={data} />
-        </section>
-      ) : (
-        <p>No content.</p>
-      )}
-    </>
+      {data && <PhotoContent single data={data} />}
+      {!loading && !data && <NoContent />}
+    </section>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { Footer, Header, Photo } from "./components";
+import { Footer, Header, NotFound } from "./components";
 import Protected from "./Layout/Protected";
 import { TokenService } from "./services/tokenService/tokenService";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
@@ -10,6 +10,8 @@ import { logout } from "./store/user/userSlice";
 import Account from "./Views/Account";
 import Home from "./Views/Home";
 import Login from "./Views/Login";
+import Photo from "./Views/Photo";
+import UserProfile from "./Views/UserProfile";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -39,19 +41,23 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login/*" element={<Login />} />
-          <Route
-            path="account/*"
-            element={
-              <Protected>
-                <Account />
-              </Protected>
-            }
-          />
-          <Route path="photo/:id" element={<Photo />} />
-        </Routes>
+        <main className="App_body">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login/*" element={<Login />} />
+            <Route
+              path="account/*"
+              element={
+                <Protected>
+                  <Account />
+                </Protected>
+              }
+            />
+            <Route path="photo/:id" element={<Photo />} />
+            <Route path="profile/:user" element={<UserProfile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
         <Footer />
       </BrowserRouter>
     </div>

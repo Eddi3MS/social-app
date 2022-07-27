@@ -11,7 +11,7 @@ import {
 interface IGetPhotos {
   page: number;
   total: number;
-  user: number;
+  user: number | string;
 }
 
 class userService {
@@ -44,6 +44,14 @@ class userService {
         "Content-Type": "application/json",
       },
     });
+  }
+
+  public static async passwordLost(body: any): Promise<AxiosResponse> {
+    return api.post("/api/password/lost", body);
+  }
+
+  public static async passwordReset(body: any): Promise<AxiosResponse> {
+    return api.post("/api/password/reset", body);
   }
 
   public static async postPhoto(params: FormData): Promise<AxiosResponse> {
@@ -83,6 +91,10 @@ class userService {
 
   public static async deletePhoto(id: number): Promise<AxiosResponse> {
     return api.delete(`/api/photo/${id}`);
+  }
+
+  public static async getStats(): Promise<AxiosResponse> {
+    return api.get("/api/stats");
   }
 }
 

@@ -5,7 +5,7 @@ import { userService } from "../../../services/userService/userService";
 interface IGetPhotos {
   page: number;
   total: number;
-  user: number;
+  user: number | string;
 }
 
 export const getPhotos = createAsyncThunk(

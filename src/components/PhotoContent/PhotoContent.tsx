@@ -35,7 +35,11 @@ const PhotoContent = ({ data, single }: IPhotoContent) => {
             {user && user.username === photo.author ? (
               <PhotoDelete id={photo.id} key={1} />
             ) : (
-              <Link key={2} to={`/perfil/${photo.author}`}>
+              <Link
+                key={2}
+                to={`/profile/${photo.author}`}
+                onClick={handleCleanPhotoId}
+              >
                 @{photo.author}
               </Link>
             )}
@@ -43,13 +47,16 @@ const PhotoContent = ({ data, single }: IPhotoContent) => {
             <span className="photo_content-visualization">{photo.acessos}</span>
           </p>
 
-          {single ? (
-            <h1 className="title">{photo.title}</h1>
-          ) : (
-            <h1 className="title" onClick={handleCleanPhotoId}>
-              <Link to={`/photo/${photo.id}`}>{photo.title}</Link>
-            </h1>
-          )}
+          <h1 className="title">
+            {!single ? (
+              <Link to={`/photo/${photo.id}`} onClick={handleCleanPhotoId}>
+                {photo.title}
+              </Link>
+            ) : (
+              <>{photo.title}</>
+            )}
+          </h1>
+
           <ul className="photo_content-atributes">
             <li>{photo.peso} kg</li>
             <li>{photo.idade} anos</li>

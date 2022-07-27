@@ -1,0 +1,20 @@
+.lost_account-form {
+  button {
+    margin-top: 1.9rem;
+  }
+}
+.back_to_login {
+  display: inline-block;
+  color: #665;
+  padding-block: 0.5rem;
+  line-height: 1;
+  margin-top: 1rem;
+
+  &::after {
+    content: "";
+    height: 2px;
+    width: 100%;
+    background-color: currentColor;
+    display: block;
+  }
+}

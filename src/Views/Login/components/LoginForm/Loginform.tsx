@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Input } from "../../../../components";
+import { Button, Head, Input } from "../../../../components";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { login } from "../../../../store/user/thunks";
 import "./LoginForm.scss";
@@ -61,6 +61,8 @@ const LoginForm = () => {
 
   return (
     <section className="animeLeft login_page">
+      <Head title="Login" description="Social App - Login Page" />
+
       <h1 className="title">Login</h1>
       <form className="login_page_form">
         <Controller

@@ -68,6 +68,19 @@ a {
   margin-top: 2rem;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+
+  &_body {
+    min-height: calc(100vh - 56px);
+  }
+}
+
+.full_height {
+  min-height: calc(100vh - 56px);
+}
+
 .flex {
   display: flex;
 }

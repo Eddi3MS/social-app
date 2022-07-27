@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Input } from "../../../../components";
+import { Button, Head, Input } from "../../../../components";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -69,6 +69,8 @@ const RegisterForm = () => {
 
   return (
     <section className="animeLeft">
+      <Head title="Registrar" description="Social App - Register Page" />
+
       <h1 className="title">Cadastre-se</h1>
       <form>
         <Controller
@@ -133,7 +135,7 @@ const RegisterForm = () => {
       </form>
 
       <Link className="login_page_lost-account" to="/login">
-        Voltar para Login
+        Voltar
       </Link>
     </section>
   );
