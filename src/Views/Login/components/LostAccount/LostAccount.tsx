@@ -53,7 +53,7 @@ const LostAccount = () => {
 
       <h1 className="title">Perdeu a senha?</h1>
       {response.success ? (
-        <p>{response.success}</p>
+        <p style={{ color: "#4c1" }}>{response.success}</p>
       ) : (
         <>
           <form onSubmit={handleSubmit} className="lost_account-form">

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ErrorModalContext } from "../../context/ErrorFeedbackContext";
+import { ErrorHandling } from "../../errors/errorHandling/ErrorHandling";
 import { userService } from "../../services/userService/userService";
 import { useAppDispatch } from "../../store/hooks";
 import { selectPhoto } from "../../store/photo/photoSlice";
@@ -13,6 +15,8 @@ const PhotoDelete = ({ id }: IPhotoDelete) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
 
+  const { setErrorModal } = useContext(ErrorModalContext);
+
   const handleClick = async () => {
     setLoading(true);
     try {
@@ -21,7 +25,8 @@ const PhotoDelete = ({ id }: IPhotoDelete) => {
       dispatch(selectPhoto({ id: null }));
       dispatch(getPhotos({ page: 1, total: 6, user: 0 }));
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(error, "Erro ao deletar foto.");
+      setErrorModal(errorHandling.error);
     } finally {
       setLoading(false);
     }

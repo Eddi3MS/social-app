@@ -14,3 +14,4 @@ export { default as PhotoCommentsForm } from "./PhotoCommentsForm";
 export { default as NotFound } from "./NotFound";
 export { default as NoContent } from "./NoContent";
 export { default as Head } from "./Head";
+export { default as ModalFeedbackError } from "./ModalFeedbackError";

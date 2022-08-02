@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Head, Input } from "../../../../components";
 import { Controller, useForm } from "react-hook-form";
@@ -7,6 +7,8 @@ import * as yup from "yup";
 import { userService } from "../../../../services/userService/userService";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { login } from "../../../../store/user/thunks";
+import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
+import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
 
 const formSchema = yup.object().shape({
   username: yup.string().required("Campo obrigatório."),
@@ -31,6 +33,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const { setErrorModal } = useContext(ErrorModalContext);
 
   const {
     handleSubmit,
@@ -63,7 +66,11 @@ const RegisterForm = () => {
         })
       );
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(
+        error,
+        "Erro ao criar sua conta."
+      );
+      setErrorModal(errorHandling.error);
     }
   };
 

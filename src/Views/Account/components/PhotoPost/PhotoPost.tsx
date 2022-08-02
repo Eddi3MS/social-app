@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { Button, Input, InputFile } from "../../../../components";
 
 import { Controller, useForm } from "react-hook-form";
@@ -7,6 +7,8 @@ import * as yup from "yup";
 import { userService } from "../../../../services/userService/userService";
 import "./PhotoPost.scss";
 import { useNavigate } from "react-router-dom";
+import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
+import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("Campo obrigatório."),
@@ -50,6 +52,8 @@ const PhotoPost = () => {
   const [image, setImage] = useState<IImage>(initialImage);
 
   const [loading, setLoading] = useState(false);
+  const { setErrorModal } = useContext(ErrorModalContext);
+
   const navigate = useNavigate();
 
   const {
@@ -75,7 +79,8 @@ const PhotoPost = () => {
 
       navigate("/account");
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(error, "Erro ao postar a foto.");
+      setErrorModal(errorHandling.error);
     } finally {
       setLoading(false);
       setData(initial);

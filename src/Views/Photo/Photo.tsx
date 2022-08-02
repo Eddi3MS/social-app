@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Head, Loading, NoContent, PhotoContent } from "../../components";
+import { ErrorModalContext } from "../../context/ErrorFeedbackContext";
+import { ErrorHandling } from "../../errors/errorHandling/ErrorHandling";
 import { ISinglePhotoDTO } from "../../services/userService/dtos/userServiceDTO";
 import { userService } from "../../services/userService/userService";
 import "./Photo.scss";
@@ -8,6 +10,8 @@ import "./Photo.scss";
 const Photo = () => {
   const [data, setData] = useState<ISinglePhotoDTO | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const { setErrorModal } = useContext(ErrorModalContext);
 
   const { id } = useParams();
 
@@ -20,7 +24,11 @@ const Photo = () => {
 
       setData(data);
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(
+        error,
+        "Erro ao recuperar dados da foto."
+      );
+      setErrorModal(errorHandling.error);
     } finally {
       setLoading(false);
     }

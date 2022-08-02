@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { ReactComponent as Enviar } from "../../assets/enviar.svg";
 import "./PhotoCommentsForm.scss";
 
@@ -8,6 +8,8 @@ import * as yup from "yup";
 import { ICommentDTO } from "../../services/userService/dtos/userServiceDTO";
 import { userService } from "../../services/userService/userService";
 import Textarea from "../Textarea";
+import { ErrorModalContext } from "../../context/ErrorFeedbackContext";
+import { ErrorHandling } from "../../errors/errorHandling/ErrorHandling";
 
 const formSchema = yup.object().shape({
   comment: yup.string().required("Campo obrigatório."),
@@ -21,6 +23,8 @@ interface IPhotoCommentsForm {
 
 const PhotoCommentsForm = ({ id, setComments, single }: IPhotoCommentsForm) => {
   const [comment, setComment] = useState("");
+
+  const { setErrorModal } = useContext(ErrorModalContext);
 
   const {
     handleSubmit,
@@ -40,7 +44,11 @@ const PhotoCommentsForm = ({ id, setComments, single }: IPhotoCommentsForm) => {
       setComment("");
       setValue("comment", "");
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(
+        error,
+        "Erro ao salvar seu comentario."
+      );
+      setErrorModal(errorHandling.error);
     }
   };
 

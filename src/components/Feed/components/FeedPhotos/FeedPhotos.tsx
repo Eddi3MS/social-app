@@ -1,5 +1,6 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectPhoto } from "../../../../store/photo/photoSlice";
 import { getPhotos } from "../../../../store/photo/thunks";
@@ -14,6 +15,8 @@ const FeedPhotos = () => {
   const userReducer = useAppSelector((state) => state.user);
 
   const location = useLocation();
+  const { setErrorModal } = useContext(ErrorModalContext);
+
   const { user } = useParams();
 
   const getPhotosList = useCallback(() => {
@@ -33,6 +36,12 @@ const FeedPhotos = () => {
   useEffect(() => {
     getPhotosList();
   }, [getPhotosList]);
+
+  useEffect(() => {
+    if (photoReducer.error) {
+      setErrorModal(photoReducer.error);
+    }
+  });
 
   const selectPhotoToModal = (id: number) => {
     dispatch(selectPhoto({ id }));

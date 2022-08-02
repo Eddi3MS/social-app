@@ -1,5 +1,13 @@
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Head, Loading } from "../../../../components";
+import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
+import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
 import { userService } from "../../../../services/userService/userService";
 //import { UserGraphs } from "./components";
 
@@ -13,6 +21,7 @@ interface IGraph {
 
 const Stats = () => {
   const [data, setData] = useState<IGraph[]>([]);
+  const { setErrorModal } = useContext(ErrorModalContext);
 
   const getStatsToShow = useCallback(async () => {
     try {
@@ -20,7 +29,8 @@ const Stats = () => {
 
       setData(data);
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(error, "Erro ao postar a foto.");
+      setErrorModal(errorHandling.error);
     }
   }, []);
 

@@ -1,7 +1,8 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { Footer, Header, NotFound } from "./components";
+import { Footer, Header, ModalFeedbackError, NotFound } from "./components";
+import { ErrorModalContext } from "./context/ErrorFeedbackContext";
 import Protected from "./Layout/Protected";
 import { TokenService } from "./services/tokenService/tokenService";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
@@ -16,6 +17,8 @@ import UserProfile from "./Views/UserProfile";
 function App() {
   const dispatch = useAppDispatch();
   const userReducer = useAppSelector((state) => state.user);
+
+  const { error, setErrorModal } = useContext(ErrorModalContext);
 
   const handleTokenExist = useCallback(() => {
     if (userReducer.user || userReducer.loading) return;
@@ -34,33 +37,44 @@ function App() {
   useEffect(() => {
     if (userReducer.error) {
       dispatch(logout());
+      setErrorModal(userReducer.error);
     }
   }, [userReducer.error]);
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header />
-        <main className="App_body">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="login/*" element={<Login />} />
-            <Route
-              path="account/*"
-              element={
-                <Protected>
-                  <Account />
-                </Protected>
-              }
-            />
-            <Route path="photo/:id" element={<Photo />} />
-            <Route path="profile/:user" element={<UserProfile />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <>
+      <div className="App">
+        <BrowserRouter>
+          <Header />
+          <main className="App_body">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="login/*" element={<Login />} />
+              <Route
+                path="account/*"
+                element={
+                  <Protected>
+                    <Account />
+                  </Protected>
+                }
+              />
+              <Route path="photo/:id" element={<Photo />} />
+              <Route path="profile/:user" element={<UserProfile />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </BrowserRouter>
+      </div>
+
+      {!!error && (
+        <ModalFeedbackError
+          show={!!error}
+          onHide={() => setErrorModal(null)}
+          message={error.message}
+        />
+      )}
+    </>
   );
 }
 

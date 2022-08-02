@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
+import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
 import { ISinglePhotoDTO } from "../../../../services/userService/dtos/userServiceDTO";
 import { userService } from "../../../../services/userService/userService";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
@@ -9,6 +11,8 @@ import "./FeedModal.scss";
 
 const FeedModal = () => {
   const [data, setData] = useState<ISinglePhotoDTO | null>(null);
+
+  const { setErrorModal } = useContext(ErrorModalContext);
 
   const dispatch = useAppDispatch();
   const photoReducer = useAppSelector((state) => state.photo);
@@ -22,7 +26,8 @@ const FeedModal = () => {
 
       setData(data);
     } catch (error) {
-      console.log(error);
+      const errorHandling = new ErrorHandling(error, "Erro ao buscar dados.");
+      setErrorModal(errorHandling.error);
     }
   }, [photoReducer.id_modal_photo]);
 

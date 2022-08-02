@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Head, Input } from "../../../../components";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
@@ -8,6 +8,7 @@ import "./LoginForm.scss";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
 
 const formSchema = yup.object().shape({
   username: yup.string().required("Campo obrigatório."),
@@ -19,6 +20,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useAppDispatch();
+  const { setErrorModal } = useContext(ErrorModalContext);
+
   const userReducer = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -49,10 +52,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (userReducer.error) {
+      setErrorModal(userReducer.error);
       setError("username", {
         message: "Login inválido.",
       });
-
       setError("password", {
         message: "Login inválido.",
       });
