@@ -2,7 +2,7 @@ import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { selectPhoto } from "../../../../store/photo/photoSlice";
+import { clearError, selectPhoto } from "../../../../store/photo/photoSlice";
 import { getPhotos } from "../../../../store/photo/thunks";
 import Loading from "../../../Loading";
 import NoContent from "../../../NoContent";
@@ -15,7 +15,7 @@ const FeedPhotos = () => {
   const userReducer = useAppSelector((state) => state.user);
 
   const location = useLocation();
-  const { setErrorModal } = useContext(ErrorModalContext);
+  const { error, setErrorModal } = useContext(ErrorModalContext);
 
   const { user } = useParams();
 
@@ -40,6 +40,7 @@ const FeedPhotos = () => {
   useEffect(() => {
     if (photoReducer.error) {
       setErrorModal(photoReducer.error);
+      dispatch(clearError());
     }
   });
 

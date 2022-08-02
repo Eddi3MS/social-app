@@ -1,5 +1,4 @@
-import { Modal } from "react-bootstrap";
-import Button from "../Button";
+import { Button, Modal } from "react-bootstrap";
 import Icon from "../Icon";
 
 interface IModalFeedbackErrorProps {
@@ -23,7 +22,7 @@ const ModalFeedbackError = ({
         <p className="text-center text-dark01">{message}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="main" onClick={onHide}>
+        <Button variant="danger" onClick={onHide}>
           OK
         </Button>
       </Modal.Footer>

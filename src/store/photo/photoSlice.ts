@@ -30,6 +30,9 @@ const photoSlice = createSlice({
     changePage(state, { payload }) {
       state.current_page = payload.page;
     },
+    clearError(state) {
+      state.error = null;
+    },
   },
   extraReducers: ({ addCase }) => {
     addCase(getPhotos.pending, (state) => {
@@ -53,5 +56,5 @@ const photoSlice = createSlice({
   },
 });
 
-export const { selectPhoto, changePage } = photoSlice.actions;
+export const { selectPhoto, changePage, clearError } = photoSlice.actions;
 export default photoSlice.reducer;

@@ -31,6 +31,9 @@ const userSlice = createSlice({
       state.user = null;
       TokenService.logout();
     },
+    clearError(state) {
+      state.error = null;
+    },
   },
   extraReducers: ({ addCase }) => {
     addCase(login.pending, (state) => {
@@ -54,5 +57,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, clearError } = userSlice.actions;
 export default userSlice.reducer;

@@ -9,6 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
+import { clearError } from "../../../../store/user/userSlice";
 
 const formSchema = yup.object().shape({
   username: yup.string().required("Campo obrigatório."),
@@ -53,6 +54,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (userReducer.error) {
       setErrorModal(userReducer.error);
+
+      dispatch(clearError());
+
       setError("username", {
         message: "Login inválido.",
       });
