@@ -6,35 +6,31 @@ No curso o projeto é construido basicamente com react + javascript e as apis fe
 
 Então estou adaptando o projeto e utilizando:
 
-- Vite (modules)
+- React.Js
+
+- create Vite (modules)
 
 - Typescript
 
 - SASS
-   
 - Axios
-   
 - Yup + React-Hook-Forms
-   
 - Redux @Toolkit
-  
-  
+
+- Context API
+
   ### Para rodar o projeto basta:
-  
-  
+
   instalar as dependências:
-  
+
   ```
-  yarn -E 
-  
+  yarn -E
+
   ```
-  
+
   rodar o projeto localmente
- 
+
   ```
   yarn dev
-  
+
   ```
-  
-  
-  
