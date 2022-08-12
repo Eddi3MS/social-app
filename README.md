@@ -13,7 +13,7 @@ Porém eu decidi construi-lo usando as tecnologias que venho utilizando no meu e
 - Axios
 - Yup + React-Hook-Forms
 - Redux @Toolkit
-- React Query
+- React Query => [Veja no Notion](https://www.notion.so/React-Query-87ce0fe3f22446c6bf42012c3fa1d6b2) 
 - Context API
 - React-Bootstrap
 
