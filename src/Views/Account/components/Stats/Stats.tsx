@@ -1,47 +1,35 @@
-import React, {
-  Suspense,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import { Head, Loading } from "../../../../components";
 import { ErrorModalContext } from "../../../../context/ErrorFeedbackContext";
 import { ErrorHandling } from "../../../../errors/errorHandling/ErrorHandling";
 import { userService } from "../../../../services/userService/userService";
-//import { UserGraphs } from "./components";
-
 const UserGraphs = React.lazy(() => import("./components/UserGraphs"));
 
-interface IGraph {
-  acessos: string;
-  id: number;
-  title: string;
-}
+import { useQuery } from "@tanstack/react-query";
 
 const Stats = () => {
-  const [data, setData] = useState<IGraph[]>([]);
   const { setErrorModal } = useContext(ErrorModalContext);
 
-  const getStatsToShow = useCallback(async () => {
-    try {
-      const { data } = await userService.getStats();
+  const { data, isLoading, error } = useQuery(["getStats"], async () => {
+    const { data } = await userService.getStats();
+    return data;
+  });
 
-      setData(data);
-    } catch (error) {
+  useEffect(() => {
+    if (error) {
       const errorHandling = new ErrorHandling(error, "Erro ao postar a foto.");
       setErrorModal(errorHandling.error);
     }
-  }, []);
+  }, [error]);
 
-  useEffect(() => {
-    getStatsToShow();
-  }, [getStatsToShow]);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Suspense fallback={<Loading />}>
       <Head title="Estatísticas" description="Social App - Stats Page" />
-      <UserGraphs data={data} />
+      {data && <UserGraphs data={data} />}
     </Suspense>
   );
 };

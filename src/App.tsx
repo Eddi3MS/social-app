@@ -13,6 +13,7 @@ import Home from "./Views/Home";
 import Login from "./Views/Login";
 import Photo from "./Views/Photo";
 import UserProfile from "./Views/UserProfile";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -41,30 +42,40 @@ function App() {
     }
   }, [userReducer.error]);
 
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: true,
+      },
+    },
+  });
+
   return (
     <>
       <div className="App">
-        <BrowserRouter>
-          <Header />
-          <main className="App_body">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="login/*" element={<Login />} />
-              <Route
-                path="account/*"
-                element={
-                  <Protected>
-                    <Account />
-                  </Protected>
-                }
-              />
-              <Route path="photo/:id" element={<Photo />} />
-              <Route path="profile/:user" element={<UserProfile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </BrowserRouter>
+        <QueryClientProvider client={client}>
+          <BrowserRouter>
+            <Header />
+            <main className="App_body">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="login/*" element={<Login />} />
+                <Route
+                  path="account/*"
+                  element={
+                    <Protected>
+                      <Account />
+                    </Protected>
+                  }
+                />
+                <Route path="photo/:id" element={<Photo />} />
+                <Route path="profile/:user" element={<UserProfile />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </BrowserRouter>
+        </QueryClientProvider>
       </div>
 
       {!!error && (

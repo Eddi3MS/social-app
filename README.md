@@ -17,6 +17,8 @@ Então estou adaptando o projeto e utilizando:
 - Yup + React-Hook-Forms
 - Redux @Toolkit
 
+- React Query
+
 - Context API
 
   ### Para rodar o projeto basta:
