@@ -35,5 +35,4 @@ Porém eu decidi construi-lo usando as tecnologias que venho utilizando no meu e
 
   as api's são públicas, disponibilizadas pelo André Rafael e resetam os dados a cada 10minutos (ou menos).
 
-  [Veja o app online](https://www.dogs.edsonmarcelo.com.br/)
   ![dogs](https://user-images.githubusercontent.com/75024157/182373655-582fa614-3d84-4212-b33b-c5a96b47db6b.JPG)
